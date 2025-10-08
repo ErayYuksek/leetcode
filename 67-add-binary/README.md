@@ -1,18 +1,120 @@
-<h2><a href="https://leetcode.com/problems/add-binary">Add Binary</a></h2> <img src='https://img.shields.io/badge/Difficulty-Easy-brightgreen' alt='Difficulty: Easy' /><hr><p>Given two binary strings <code>a</code> and <code>b</code>, return <em>their sum as a binary string</em>.</p>
+Tabii! Kodunu satır satır açıklayayım. Bu kod C# dilinde yazılmış ve iki binary (ikilik sayı sistemindeki) stringi toplamak için kullanılıyor.
 
-<p>&nbsp;</p>
-<p><strong class="example">Example 1:</strong></p>
-<pre><strong>Input:</strong> a = "11", b = "1"
-<strong>Output:</strong> "100"
-</pre><p><strong class="example">Example 2:</strong></p>
-<pre><strong>Input:</strong> a = "1010", b = "1011"
-<strong>Output:</strong> "10101"
-</pre>
-<p>&nbsp;</p>
-<p><strong>Constraints:</strong></p>
+⸻
 
-<ul>
-	<li><code>1 &lt;= a.length, b.length &lt;= 10<sup>4</sup></code></li>
-	<li><code>a</code> and <code>b</code> consist&nbsp;only of <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code> characters.</li>
-	<li>Each string does not contain leading zeros except for the zero itself.</li>
-</ul>
+
+public class Solution {
+    public string AddBinary(string a, string b) {
+
+	•	Solution adında bir sınıf tanımlanıyor.
+	•	AddBinary adında bir metot var, parametre olarak ikilik sayıyı temsil eden iki string (a ve b) alıyor ve sonucunu string olarak döndürüyor.
+
+⸻
+
+
+        int i = a.Length - 1;
+        int j = b.Length - 1;
+
+	•	i, string a’nın son indeksini tutar.
+	•	j, string b’nin son indeksini tutar.
+👉 Bu, binary toplamayı en sağdaki (en düşük basamak) rakamdan başlatmak için yapılıyor.
+
+⸻
+
+
+        int carry = 0;
+
+	•	carry taşımayı (eldeyi) temsil eder. Başlangıçta 0’dır.
+
+⸻
+
+
+        var result = new System.Text.StringBuilder();
+
+	•	StringBuilder, sonucu verimli bir şekilde oluşturmak için kullanılır. (String concatenation daha yavaş olurdu.)
+
+⸻
+
+
+        while (i >= 0 || j >= 0 || carry > 0) {
+
+	•	Döngü şu koşullardan biri sağlandığı sürece devam eder:
+	•	i hâlâ a içinde geçerli bir indisi işaret ediyorsa,
+	•	j hâlâ b içinde geçerli bir indisi işaret ediyorsa,
+	•	veya elde (carry) sıfırdan farklıysa.
+
+👉 Böylece her iki sayı da bitse bile elde varsa devam ediliyor.
+
+⸻
+
+
+            int sum = carry;
+
+	•	Her adımda toplama işlemi carry ile başlatılır.
+
+⸻
+
+
+            if (i >= 0) sum += a[i--] - '0';
+            if (j >= 0) sum += b[j--] - '0';
+
+	•	Eğer i halen geçerliyse (a stringinden bir basamak varsa):
+	•	a[i] karakteri alınır.
+	•	'0' çıkarılarak sayıya çevrilir (örneğin '1' - '0' = 1).
+	•	sum’a eklenir.
+	•	i bir azaltılır (bir basamak sola kayılır).
+	•	Aynı şey j için de yapılır (b stringi).
+
+⸻
+
+
+            result.Insert(0, (sum % 2).ToString());
+
+	•	sum % 2, binary toplamda bulunduğumuz basamağın sonucu olur (0 veya 1).
+	•	Bu değer stringe çevrilir ve Insert(0, ...) ile sonuca en başa eklenir.
+👉 Çünkü toplama işlemi sağdan sola yapılırken StringBuilder sonucu soldan sağa kurmak zorunda.
+
+⸻
+
+
+            carry = sum / 2;
+
+	•	sum / 2 işlemiyle yeni elde hesaplanır.
+	•	Eğer sum 2 veya 3 olursa elde 1 olur.
+	•	Eğer sum 0 veya 1 ise elde 0 olur.
+
+⸻
+
+
+        }
+
+	•	Döngü biter.
+
+⸻
+
+
+        return result.ToString();
+    }
+}
+
+	•	StringBuilder’ın sonucu stringe çevrilip döndürülür.
+
+⸻
+
+Örnek Çalışma
+
+a = "1011"
+b = "1101"
+
+	•	Sağdan başlanır:
+	•	1 + 1 = 2 → basamak: 0, elde: 1
+	•	carry + 1 + 1 = 3 → basamak: 1, elde: 1
+	•	carry + 0 + 1 = 2 → basamak: 0, elde: 1
+	•	carry + 1 + 1 = 3 → basamak: 1, elde: 1
+	•	elde 1 kaldı → basamak: 1
+
+Sonuç: "11000"
+
+⸻
+
+İstersen ben sana bu algoritmayı bir örnek giriş üzerinde adım adım tablo şeklinde görselleştirebilirim. İster misin?
