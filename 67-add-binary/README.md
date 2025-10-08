@@ -1,6 +1,4 @@
-Tabii! Kodunu satır satır açıklayayım. Bu kod C# dilinde yazılmış ve iki binary (ikilik sayı sistemindeki) stringi toplamak için kullanılıyor.
 
-⸻
 
 
 public class Solution {
@@ -117,4 +115,4 @@ Sonuç: "11000"
 
 ⸻
 
-İstersen ben sana bu algoritmayı bir örnek giriş üzerinde adım adım tablo şeklinde görselleştirebilirim. İster misin?
+
