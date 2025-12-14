@@ -1,2 +1,1 @@
- LeetCode Solutions
-Bu repo LeetCode çözümlerimi içeriyor 🚀
+ LeetCode Solutions 🚀
